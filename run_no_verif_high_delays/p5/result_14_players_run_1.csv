@@ -1,0 +1,14 @@
+name,src_file,src_line,total_ns,total_perc,counts,mean_ns,min_ns,max_ns,std_ns
+computeKey_passive,/home/moritz/Documents/Studium/Praktikum/sketches/lcm_proof_of_concept/lcm/lcm/lcmsec/gkexchg.cpp,788,2554811,0.022710,1,2554811,2554811,2554811,0.000000
+JOIN_response,/home/moritz/Documents/Studium/Praktikum/sketches/lcm_proof_of_concept/lcm/lcm/lcmsec/gkexchg.cpp,259,572366,0.005088,14,40883,30,570582,152457.824225
+on_JOIN,/home/moritz/Documents/Studium/Praktikum/sketches/lcm_proof_of_concept/lcm/lcm/lcmsec/gkexchg.cpp,561,22217162,0.197494,14,1586940,778293,2646553,538108.195979
+gkexchg_success,/home/moritz/Documents/Studium/Praktikum/sketches/lcm_proof_of_concept/lcm/lcm/lcmsec/gkexchg.cpp,1037,19587,0.000174,1,19587,19587,19587,0.000000
+on_JOIN_response,/home/moritz/Documents/Studium/Praktikum/sketches/lcm_proof_of_concept/lcm/lcm/lcmsec/gkexchg.cpp,440,203800546,1.811633,22,9263661,1514947,38288509,10997930.151208
+gka and attest,/home/moritz/Documents/Studium/Praktikum/sketches/lcm_proof_of_concept/lcm/lcm/lcmsec/gkexchg.cpp,861,780927025,6.941853,1,780927025,780927025,780927025,0.000000
+gka,/home/moritz/Documents/Studium/Praktikum/sketches/lcm_proof_of_concept/lcm/lcm/lcmsec/gkexchg.cpp,864,683636685,6.077015,1,683636685,683636685,683636685,0.000000
+ra_attest,/home/moritz/Documents/Studium/Praktikum/sketches/lcm_proof_of_concept/lcm/lcm/lcmsec/gkexchg.cpp,938,445202399,3.957514,1,445202399,445202399,445202399,0.000000
+round1,/home/moritz/Documents/Studium/Praktikum/sketches/lcm_proof_of_concept/lcm/lcm/lcmsec/gkexchg.cpp,662,1346570,0.011970,1,1346570,1346570,1346570,0.000000
+ra_verify,/home/moritz/Documents/Studium/Praktikum/sketches/lcm_proof_of_concept/lcm/lcm/lcmsec/gkexchg.cpp,904,16109331,0.143200,15,1073955,1034764,1117820,19033.836202
+round2,/home/moritz/Documents/Studium/Praktikum/sketches/lcm_proof_of_concept/lcm/lcm/lcmsec/gkexchg.cpp,701,1713640,0.015233,1,1713640,1713640,1713640,0.000000
+LCMsec Startup,/home/moritz/Documents/Studium/Praktikum/sketches/lcm_proof_of_concept/lcm/lcm/lcmsec/gkexchg.cpp,222,1653677368,14.699946,1,1653677368,1653677368,1653677368,0.000000
+JOIN,/home/moritz/Documents/Studium/Praktikum/sketches/lcm_proof_of_concept/lcm/lcm/lcmsec/gkexchg.cpp,231,673486,0.005987,1,673486,673486,673486,0.000000

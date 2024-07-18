@@ -1,0 +1,13 @@
+name,src_file,src_line,total_ns,total_perc,counts,mean_ns,min_ns,max_ns,std_ns
+gkexchg_success,/home/moritz/Documents/Studium/Praktikum/sketches/lcm_proof_of_concept/lcm/lcm/lcmsec/gkexchg.cpp,1037,13996,0.000133,1,13996,13996,13996,0.000000
+on_JOIN_response,/home/moritz/Documents/Studium/Praktikum/sketches/lcm_proof_of_concept/lcm/lcm/lcmsec/gkexchg.cpp,440,598510358,5.670170,14,42750739,1149519,124763156,55389339.569670
+on_JOIN,/home/moritz/Documents/Studium/Praktikum/sketches/lcm_proof_of_concept/lcm/lcm/lcmsec/gkexchg.cpp,561,2398594,0.022724,1,2398594,2398594,2398594,0.000000
+gka and attest,/home/moritz/Documents/Studium/Praktikum/sketches/lcm_proof_of_concept/lcm/lcm/lcmsec/gkexchg.cpp,861,496595921,4.704653,1,496595921,496595921,496595921,0.000000
+gka,/home/moritz/Documents/Studium/Praktikum/sketches/lcm_proof_of_concept/lcm/lcm/lcmsec/gkexchg.cpp,864,92768580,0.878871,1,92768580,92768580,92768580,0.000000
+round1,/home/moritz/Documents/Studium/Praktikum/sketches/lcm_proof_of_concept/lcm/lcm/lcmsec/gkexchg.cpp,662,1820549,0.017248,1,1820549,1820549,1820549,0.000000
+round2,/home/moritz/Documents/Studium/Praktikum/sketches/lcm_proof_of_concept/lcm/lcm/lcmsec/gkexchg.cpp,701,2909864,0.027567,1,2909864,2909864,2909864,0.000000
+ra_attest,/home/moritz/Documents/Studium/Praktikum/sketches/lcm_proof_of_concept/lcm/lcm/lcmsec/gkexchg.cpp,938,445308192,4.218763,1,445308192,445308192,445308192,0.000000
+ra_verify,/home/moritz/Documents/Studium/Praktikum/sketches/lcm_proof_of_concept/lcm/lcm/lcmsec/gkexchg.cpp,904,12776685,0.121044,12,1064723,1062805,1069649,2168.784767
+computeKey_passive,/home/moritz/Documents/Studium/Praktikum/sketches/lcm_proof_of_concept/lcm/lcm/lcmsec/gkexchg.cpp,788,3856332,0.036534,1,3856332,3856332,3856332,0.000000
+LCMsec Startup,/home/moritz/Documents/Studium/Praktikum/sketches/lcm_proof_of_concept/lcm/lcm/lcmsec/gkexchg.cpp,222,1147420593,10.870438,1,1147420593,1147420593,1147420593,0.000000
+JOIN,/home/moritz/Documents/Studium/Praktikum/sketches/lcm_proof_of_concept/lcm/lcm/lcmsec/gkexchg.cpp,231,651644,0.006174,1,651644,651644,651644,0.000000
