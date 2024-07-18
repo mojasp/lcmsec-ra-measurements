@@ -4,9 +4,10 @@
 
 * 3 runs were finally used in the work:
     * no_verif_low_delays was done with emulated delays of 20ms , 10ms variance. LCMsec Commit c79e558 - : Adjusted timeouts for latency measurements was used for this measurement
-    * no_verif_high_delays was done with emulated delays of 250 , 50ms variance LCMsec Commit c79e558 - : Adjusted timeouts for latency measurements was used for this measurement
-
-* I have included the full tracy captures of all runs that were performed to record measurements in this repo; if you want you can examine them in tracy. For this reason, this repo is rather large
+    * no_verif_high_delays was done with emulated delays of 250 , 50ms variance. LCMsec Commit c79e558 - : Adjusted timeouts for latency measurements was used for this measurement
+    * no_verif_high_delays was done with emulated delays of 250 , 50ms variance. LCMsec Commit  ad97f93 - "measurement for RA eventlog verification" was used for this measurement.
+    
+* I have included the full tracy captures of all runs that were performed to record measurements in this repo; they can be examined them in tracy. For this reason, this repo is rather large (~350 MB), bewar before downloading.
 
 * Tracy instrumentation is used to measure the times taken for group key agreement. If interested, you can gather far more data from the respective traces than is eventually used by the analysis
 
@@ -24,7 +25,7 @@
 * run_all.py runs many runs of run_test for varying parameters, adjust as needed. For instance, P in {0,5,10,15,20} where used while increasing J from 0 to 15
 * finally, analysis.r to analyse the resulting .csv files and produce a graph
 * run_all.py will create folder name for test results and simlink "latest_run" to that result.
-* all the files from lcm/examples/cpp_security are present: the demo_instance from there is just copied here for to serve as an actual program to be run. Its behaviour is not relevant. Some files are superflouus; i haven't cleaned it up.
+* all the files from lcm/examples/cpp_security are present: the demo_instance from there is just copied here for to serve as an actual program to be run. Its behaviour is not relevant. However, it does require the tomplusplus c++ library to parse config files.
 
 ## NOTES
 
@@ -32,4 +33,4 @@
     1. add loopback multicast route: `sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo`
     2. add delay on loopback: `sudo tc qdisc add dev lo root netem delay 20ms 10ms distribution normal`
 
-* In some of the runs, errors occured, especially for a large number of total nodes. I assume that this was due to the machine being overloaded. The analysis.r file reports these errors: Sometimes, the group key agreement timed out causing a very large value for the gka_and_attest measurement, which is reported as OOB. Otherwise, datapoints might not available at all (NA) or some io error happened causing a file to be missing. In these cases, the relevant measurement was re-run.
+* In some of the runs, errors occured, especially for a large number of total nodes. I assume that this was due to the machine being overloaded; with the cpu ran at 100% in some cases. The analysis.r file reports these errors: Sometimes, the group key agreement timed out causing a very large value for the gka_and_attest measurement, which is reported as OOB. Otherwise, datapoints might not available at all (NA) or some io error happened causing a file to be missing. In these cases, the relevant measurement was re-run.
