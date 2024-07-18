@@ -15,9 +15,6 @@ def main():
     os.system("rm last_run")
     os.system("ln -s " + testdir + " last_run")
 
-    setup=0 # start with an existing group of size 10
-
-    #iterate from 0 to max_players
     for setup in [0, 5, 10, 15, 20]:
         current_dir=testdir + "/p" + str(setup)
         print(current_dir)
