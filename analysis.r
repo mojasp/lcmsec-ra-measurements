@@ -1,71 +1,127 @@
-players  <-  35
-runsperplayer <- 50
-
 #run following bash command to ensure good data (i.e., in the run all consensus phases resulted in successful key computation)
     # for ((i = 1 ; i < 21 ; i++)); do
     #         echo "$i:\n" && grep "gkexchg_success" last_run/result_${i}_* | wc
     # done
-# actually seems i need to rerun 17&19&20; most likely i was overloading the cpu at the time with other tasks
 
-require(data.table)
-require(ggplot2)
-# library(vioplot)
-# library(gridExtra)
-# library(cowplot)
+library(ggplot2)
 
-d2  <- data.table()
-for (i in 1:players) {
-    col <- c()
-    for (j in 1:runsperplayer) {
-        filename <- paste("full_run_delays/result_", i, "_players_run_", j, ".csv", sep = "")
-        # filename <- paste("tracy_run_20230223_091300/result_", i, "_players_run_", j, ".csv", sep = "")
-        r <- read.csv(filename)
-        r <- as.data.table(r)
-        jrcount <- r[r$name=="on_JOIN_response"]
-        jrcount <- jrcount$counts
-        # cat("p: ", i,", r: ", j, ", c:", jrcount, "\n")
-        col <- c(col, jrcount)
-        print(paste("i=", i, "j=",j))
-        print(jrcount)
+measurement  <- "run_no_verif_low_delays/"
+
+folders <- c("p0", "p5", "p10", "p15", "p20")
+
+# Function to read a single CSV file and extract the required value
+extract_value <- function(folder, filename) {
+    file_path <- file.path(paste0(measurement, folder), filename)
+    data <- tryCatch({
+        read.csv(file_path)
+      }, error = function(e) {
+    message("Error reading file: ", file_path)
+    message("Error: ", e)
+    return(NULL)
+    })
+  
+  if ( !is.null(data) && "gka and attest" %in% data$name) {
+    value <- data[data$name == "gka and attest", "total_ns"]
+    total_ms <- value / 1e6  # Convert from nanoseconds to milliseconds
+    if(total_ms > 2000 ) {
+        cat('OOB, ', folder, filename, '\n')
+        return(NA)
     }
-    print (length(col))
-    d2[, as.character(i) :=  col]
+    return(total_ms)
+    } else {
+        cat('NA, ', folder, filename, '\n')
+        return(NA)
+  }
 }
 
-#melt into long fmt
-dt_long <- melt(d2, variable.name = "players", value.name = "count")
-dt_long[, joins := as.numeric(players)* 2] #we know a priori that there are always two JOINS per player - one for each channel
+# Initialize an empty data frame to store the results
+results <- data.frame(folder = character(), x = integer(), total_ms = numeric())
 
-#  # Calculate the average count for each number of players
-# mean_dt <- dt_long[, .(Avg_count = mean(Count)), by = Num_players]
+# Loop through the folders and files to extract the values
+for (folder in folders) {
+  for (x in 1:15) {
+    filename <- paste0("result_", x, "_players_run_1.csv")
+    total_ms <- extract_value(folder, filename)
+    results <- rbind(results, data.frame(folder = folder, x = x, total_ms = total_ms))
+  }
+}
 
-# #errorbar assuming normal distribution
-# ggplot(dt_long, aes(x = players, y = count)) + 
-#   stat_summary(fun.data = mean_sdl, geom = "errorbar") +
-#   geom_point()+ 
-#   labs(x = "Number of players", y = "Observed JOIN_Responses")
+#order folders numerically 
+results$folder <- factor(results$folder, levels = c("p0", "p5", "p10", "p15", "p20"))
+folder_labels <- c("p0" = "0", "p5" = "5", "p10" = "10", "p15" = "15", "p20" = "20")
 
-# # violin plot
-# vioplot(dt_long$count ~ dt_long$players,
-#         xlab = "Number of Players",
-#         ylab = "Count",
-#         main = "Count vs. Number of Players",
-#         col = "lightblue")
+# Plot the results
+p <- ggplot(results, aes(x = x, y = total_ms, color = folder, group = folder)) +
+  geom_line() +
+  geom_point() +
+  labs(title = "LCMsec GKA and Attestation, small delays",
+       x = "Size of J",
+       y = "ms", color="Size of P") +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  ylim(0, max(results$total_ms)) +
+  scale_color_manual(values = c("p0" = "red", "p5" = "blue", "p10" = "green", "p15" = "purple", "p20" = "orange"),
+                     labels = folder_labels)
 
+ggsave("latency_no_verif_low_delay.eps", p, width = 6, height = 4, dpi = 300)
 
-#boxplot seems nicest for the usecase
-p <- ggplot(data=dt_long, aes(x=players), text = element_text(family = "Times New Roman") )+
-  geom_boxplot( aes(y=count, colour="JOIN_Responses")) +
-  geom_point(aes(y = joins,colour="JOINs")) + 
-  scale_colour_manual("", 
-                      breaks = c("JOINs", "JOIN_Responses"),
-                      values = c("brown", "blue")) +
-  theme( legend.title=element_blank()) +
-  theme(
-    legend.position=c(0.15, 0.85),
-    # legend.text=element_text(size=12)
-    )+
-  labs(x = "|J|", y = "count")
-show(p)
+######### COPY PASTED PROGRAMMING FOR SECOND MEASUREMENT FOR SIMPLICITY
 
-ggsave("consensus_initial_delay.eps", p, width = 6, height = 4, dpi = 300)
+measurement  <- "run_no_verif_high_delays/"
+folders <- c("p0", "p5", "p10", "p15", "p20")
+
+# Function to read a single CSV file and extract the required value
+extract_value <- function(folder, filename) {
+    file_path <- file.path(paste0(measurement, folder), filename)
+    data <- tryCatch({
+        read.csv(file_path)
+      }, error = function(e) {
+    message("Error reading file: ", file_path)
+    message("Error: ", e)
+    return(NULL)
+    })
+  
+  if ( !is.null(data) && "gka and attest" %in% data$name) {
+    value <- data[data$name == "gka and attest", "total_ns"]
+    total_ms <- value / 1e6  # Convert from nanoseconds to milliseconds
+    if(total_ms > 2000 ) {
+        cat('OOB, ', folder, filename, '\n')
+        return(NA)
+    }
+    return(total_ms)
+    } else {
+        cat('NA, ', folder, filename, '\n')
+        return(NA)
+  }
+}
+
+# Initialize an empty data frame to store the results
+results <- data.frame(folder = character(), x = integer(), total_ms = numeric())
+
+# Loop through the folders and files to extract the values
+for (folder in folders) {
+  for (x in 1:15) {
+    filename <- paste0("result_", x, "_players_run_1.csv")
+    total_ms <- extract_value(folder, filename)
+    results <- rbind(results, data.frame(folder = folder, x = x, total_ms = total_ms))
+  }
+}
+
+#order folders numerically 
+results$folder <- factor(results$folder, levels = c("p0", "p5", "p10", "p15", "p20"))
+folder_labels <- c("p0" = "0", "p5" = "5", "p10" = "10", "p15" = "15", "p20" = "20")
+
+# Plot the results
+p <- ggplot(results, aes(x = x, y = total_ms, color = folder, group = folder)) +
+  geom_line() +
+  geom_point() +
+  labs(title = "LCMsec GKA and Attestation, small delays",
+       x = "Size of J",
+       y = "ms", color="Size of P") +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  ylim(0, max(results$total_ms)) +
+  scale_color_manual(values = c("p0" = "red", "p5" = "blue", "p10" = "green", "p15" = "purple", "p20" = "orange"),
+                     labels = folder_labels)
+
+ggsave("latency_no_verif_high_delay.eps", p, width = 6, height = 4, dpi = 300)

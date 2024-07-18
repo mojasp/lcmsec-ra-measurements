@@ -17,7 +17,6 @@ def main():
 
     setup=0 # start with an existing group of size 10
 
-
     #iterate from 0 to max_players
     for setup in [0, 5, 10, 15, 20]:
         current_dir=testdir + "/p" + str(setup)
