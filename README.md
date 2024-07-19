@@ -1,5 +1,11 @@
 # Startup latency measurement of LCMsec RA protocol
 
+## THIS REPO IS VERY LARGE (880MB) - BEWARE BEFORE CLONING 
+
+## Overview
+
+* I have included the full tracy captures of all runs that were performed to record measurements in this repo; they can be examined them in tracy. For this reason, this repo is very large , beware before downloading.
+
 * Goal: Measure startup latency of LCMsec. More precicely, disregard the discovery phase and measure startup latency of GKA+Attestation
 
 * The following runs were used in the thesis:
@@ -11,14 +17,12 @@
     * run_naive_tree_noverif with delays of 20ms,10ms. LCMsec commit bd98abd - "Attestation static naive measurement commit" 
     * run_naive_tree_verif with delays of 20ms,10ms. LCMsec commit bd98abd - "Attestation static naive measurement commit" 
     
-* I have included the full tracy captures of all runs that were performed to record measurements in this repo; they can be examined them in tracy. For this reason, this repo is very large , bewar before downloading.
-
-* Tracy instrumentation is used to measure the times taken for group key agreement. If interested, you can gather far more data from the respective traces than is eventually used by the analysis
+* Tracy instrumentation is used to measure the times taken for group key agreement / dynamic attestation / static group attestation
 
 ## technical considerations
 
 * We are running many nodes on one machine => its easy to overflow buffers or overload CPU since we are on a broadcast topology. So we cannot run more than ~40 nodes on one machine. The limit of active nodes in the DB GKA / RA seems to be about 25.
-* For the same reason timeouts in the discovery phase are increased (ensure discovery doesn't time out).
+* For the same reason timeouts in the discovery phase are increased for the measurements (ensure discovery doesn't time out).
 
 ## Instructions for use and overview over the files in this directory
 * You need one normal build of LCmsec as well as one tracy-enabled build. To produce the latter, configure LCMSec to use tracy with `cmake -DUSE_TRACY=ON [...]`. You also need the tracy-csvexport and tracy-capture binaries which can be built from source (tracy-src/capture and tracy-src/csvexport). For me, there were some errors during the build (tracy issue #811 and #548 on github); if that is the case set -DNO_PARALLEL_STL=1 and D_LEGACY=1 when configuring.
