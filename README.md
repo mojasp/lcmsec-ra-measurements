@@ -2,12 +2,16 @@
 
 * Goal: Measure startup latency of LCMsec. More precicely, disregard the discovery phase and measure startup latency of GKA+Attestation
 
-* 3 runs were finally used in the work:
+* The following runs were used in the thesis:
     * no_verif_low_delays was done with emulated delays of 20ms , 10ms variance. LCMsec Commit c79e558 - : Adjusted timeouts for latency measurements was used for this measurement
     * no_verif_high_delays was done with emulated delays of 250 , 50ms variance. LCMsec Commit c79e558 - : Adjusted timeouts for latency measurements was used for this measurement
     * no_verif_high_delays was done with emulated delays of 250 , 50ms variance. LCMsec Commit  ad97f93 - "measurement for RA eventlog verification" was used for this measurement.
+    * run_static_tree_noverif with delays of 20ms,10ms. LCMsec commit e4605ee - "static tree based attestation measurement commit"
+    * run_static_tree_verif with delays of 20ms,10ms. LCMsec commit e4605ee - "static tree based attestation measurement commit"
+    * run_naive_tree_noverif with delays of 20ms,10ms. LCMsec commit bd98abd - "Attestation static naive measurement commit" 
+    * run_naive_tree_verif with delays of 20ms,10ms. LCMsec commit bd98abd - "Attestation static naive measurement commit" 
     
-* I have included the full tracy captures of all runs that were performed to record measurements in this repo; they can be examined them in tracy. For this reason, this repo is rather large (~350 MB), bewar before downloading.
+* I have included the full tracy captures of all runs that were performed to record measurements in this repo; they can be examined them in tracy. For this reason, this repo is very large , bewar before downloading.
 
 * Tracy instrumentation is used to measure the times taken for group key agreement. If interested, you can gather far more data from the respective traces than is eventually used by the analysis
 
