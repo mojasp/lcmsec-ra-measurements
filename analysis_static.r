@@ -1,4 +1,6 @@
 
+library(ggplot2)
+
 ###### NAIVE - NO EVENTLOG VERIFICATION
 
 results <- data.frame(x = integer(), total_ns = numeric())
@@ -85,7 +87,6 @@ ggplot(results, aes(x = x, y = total_s)) +
 
 
 ######## STATIC TREE- EVENTLOG VERIFICATION
-library(ggplot2)
 
 results <- data.frame(x = integer(), total_ns = numeric())
 
@@ -202,7 +203,7 @@ for (i in 1:20) {
 
 combined_results_verif <- rbind(results_naive_verif, results_static_tree_verif)
 
-ggplot(combined_results_verif, aes(x = x, y = total_s, color = method)) +
+p <- ggplot(combined_results_verif, aes(x = x, y = total_s, color = method)) +
     geom_line() +
     geom_point() +
     labs(
